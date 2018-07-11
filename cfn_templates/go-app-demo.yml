@@ -1,0 +1,60 @@
+Resources:
+
+    VPC:
+        Type: AWS::CloudFormation::Stack
+        Properties:
+            TemplateURL: https://s3-ap-southeast-2.amazonaws.com/goapp-web-cfn/vpc.yml
+            Parameters:
+                EnvName:    !Ref AWS::StackName
+                VPCCIDR:            10.10.0.0/24
+                PublicSubnet1CIDR:  10.10.0.0/26
+                PublicSubnet2CIDR:  10.10.0.64/26
+                PrivateSubnet1CIDR: 10.10.0.128/26
+                PrivateSubnet2CIDR: 10.10.0.192/26
+
+    SecurityGroups:
+        Type: AWS::CloudFormation::Stack
+        Properties:
+            TemplateURL: https://s3-ap-southeast-2.amazonaws.com/goapp-web-cfn/sg.yml
+            Parameters: 
+                EnvName: !Ref AWS::StackName
+                VPC: !GetAtt VPC.Outputs.VPC
+
+    ALB:
+        Type: AWS::CloudFormation::Stack
+        Properties:
+            TemplateURL: https://s3-ap-southeast-2.amazonaws.com/goapp-web-cfn/alb.yml
+            Parameters:
+                EnvName: !Ref AWS::StackName
+                VPC: !GetAtt VPC.Outputs.VPC
+                Subnets: !GetAtt VPC.Outputs.PublicSubnets
+                SecurityGroup: !GetAtt SecurityGroups.Outputs.LoadBalancerSecurityGroup
+
+    ECS:
+        Type: AWS::CloudFormation::Stack
+        Properties:
+            TemplateURL: https://s3-ap-southeast-2.amazonaws.com/goapp-web-cfn/ecs-cluster.yml
+            Parameters:
+                EnvName: !Ref AWS::StackName
+                InstanceType: t2.micro
+                ClusterSize: 4
+                VPC: !GetAtt VPC.Outputs.VPC
+                SecurityGroup: !GetAtt SecurityGroups.Outputs.ECSHostSecurityGroup
+                Subnets: !GetAtt VPC.Outputs.PrivateSubnets
+
+    GoAppService:
+        Type: AWS::CloudFormation::Stack
+        Properties:
+            TemplateURL: https://s3-ap-southeast-2.amazonaws.com/goapp-web-cfn/service.yml
+            Parameters:
+                VPC: !GetAtt VPC.Outputs.VPC
+                Cluster: !GetAtt ECS.Outputs.Cluster
+                DesiredCount: 2
+                Listener: !GetAtt ALB.Outputs.Listener 
+                Path: /go
+
+Outputs:
+
+    GoAppServiceUrl: 
+        Description: The URL endpoint for the go app service
+        Value: !Join ["", [ !GetAtt ALB.Outputs.LoadBalancerUrl, "/go" ]]
