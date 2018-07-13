@@ -1,6 +1,6 @@
 # Demo solution for Assembly Payments
 
-This document gives some brief idea about the solution to automate a golang application deployment on ECS cluster hosted in AWS with two availability zones.
+This document describes the steps necessary to build a solution to automate a golang application deployment on ECS cluster hosted in AWS with two availability zones.
 
 ## Overview
 There are two parts for this proposed solution:
