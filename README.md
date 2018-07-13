@@ -65,3 +65,4 @@ Still working on the CodePipeline part to make the whole workflow automated, sta
 * Stackoverflow
 * AWS Reference templates
 * Codeship blog
+* Lucidcharts
