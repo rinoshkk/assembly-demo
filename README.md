@@ -3,7 +3,7 @@
 This document describes the steps necessary to build a solution to automate a golang application deployment on ECS cluster hosted in AWS with two availability zones.
 
 ## Overview
-There are two parts for this proposed solution:
+There are two parts for this solution:
 * Infrastructure provisioning
 * Application deployment
 
@@ -18,10 +18,6 @@ CloudFormations templates are being used for Infrastructure provisioning, Docker
 * AWS account with aws cli already configured with aws_access_key_id, aws_secret_access_key and aws_default_region
 * S3 bucket with cfn_templates directory copied to the S3 bucket
 * IAM user with programatic access to ECR (Elastic Container Repository) for pushing docker images
-
-```
-Give examples
-```
 
 ### Assumptions
 * ECR: 069934997449.dkr.ecr.ap-southeast-2.amazonaws.com/assembly_demo:latest
