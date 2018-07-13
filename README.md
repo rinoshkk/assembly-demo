@@ -51,7 +51,7 @@ Now our image is ready and deployed on AWS ECR!
 Next step is, running the cloudformation template to create the infrastructure stack including the ECS cluster.
 
 ```
-aws cloudformation create-stack --stack-name wordpress --template-url https://s3-ap-southeast-2.amazonaws.com/cfn_templates/go-app-demo.yml
+aws cloudformation create-stack --stack-name assembly-demo --template-url https://s3-ap-southeast-2.amazonaws.com/cfn_templates/go-app-demo.yml
 ```
 This template file has all other required templates like VPC, ALB, ECS nested inside it.
 
