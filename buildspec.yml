@@ -6,7 +6,7 @@ phases:
       - echo Logging in to Amazon ECR...
       - aws --version
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-      - REPOSITORY_URI=196490479361.dkr.ecr.ap-southeast-2.amazonaws.com/goapp
+      - REPOSITORY_URI=assembly_demo:latest 196490479361.dkr.ecr.ap-southeast-2.amazonaws.com/assembly_demo
       - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
   build:
     commands:
