@@ -3,7 +3,7 @@ Resources:
     VPC:
         Type: AWS::CloudFormation::Stack
         Properties:
-            TemplateURL: https://s3-ap-southeast-2.amazonaws.com/goapp-web-cfn/vpc.yml
+            TemplateURL: https://s3-ap-southeast-2.amazonaws.com/cfn_templates/vpc.yml
             Parameters:
                 EnvName:    !Ref AWS::StackName
                 VPCCIDR:            10.10.0.0/24
@@ -15,7 +15,7 @@ Resources:
     SecurityGroups:
         Type: AWS::CloudFormation::Stack
         Properties:
-            TemplateURL: https://s3-ap-southeast-2.amazonaws.com/goapp-web-cfn/sg.yml
+            TemplateURL: https://s3-ap-southeast-2.amazonaws.com/cfn_templates/sg.yml
             Parameters: 
                 EnvName: !Ref AWS::StackName
                 VPC: !GetAtt VPC.Outputs.VPC
@@ -23,7 +23,7 @@ Resources:
     ALB:
         Type: AWS::CloudFormation::Stack
         Properties:
-            TemplateURL: https://s3-ap-southeast-2.amazonaws.com/goapp-web-cfn/alb.yml
+            TemplateURL: https://s3-ap-southeast-2.amazonaws.com/cfn_templates/alb.yml
             Parameters:
                 EnvName: !Ref AWS::StackName
                 VPC: !GetAtt VPC.Outputs.VPC
@@ -33,7 +33,7 @@ Resources:
     ECS:
         Type: AWS::CloudFormation::Stack
         Properties:
-            TemplateURL: https://s3-ap-southeast-2.amazonaws.com/goapp-web-cfn/ecs-cluster.yml
+            TemplateURL: https://s3-ap-southeast-2.amazonaws.com/cfn_templates/ecs-cluster.yml
             Parameters:
                 EnvName: !Ref AWS::StackName
                 InstanceType: t2.micro
@@ -45,7 +45,7 @@ Resources:
     GoAppService:
         Type: AWS::CloudFormation::Stack
         Properties:
-            TemplateURL: https://s3-ap-southeast-2.amazonaws.com/goapp-web-cfn/service.yml
+            TemplateURL: https://s3-ap-southeast-2.amazonaws.com/cfn_templates/service.yml
             Parameters:
                 VPC: !GetAtt VPC.Outputs.VPC
                 Cluster: !GetAtt ECS.Outputs.Cluster
