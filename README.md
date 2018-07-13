@@ -61,3 +61,7 @@ If all steps are executed correctly, we will have the complete stack ready with 
 
 Still working on the CodePipeline part to make the whole workflow automated, starting from taking the go application from GitHub repo and make a docker image on the fly and deploy it on ECR through CodeBuild
 
+## Acknowledgements
+* Stackoverflow
+* AWS Reference templates
+* Codeship blog
