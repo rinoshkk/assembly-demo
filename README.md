@@ -11,8 +11,7 @@ CloudFormations templates are being used for Infrastructure provisioning, Docker
 
 ## Architecture Diagram
 
-![Architecture Diagram](
-(https://github.com/rinoshkk/assembly-demo/blob/master/Assembly_Demo.png)
+![Architecture Diagram](https://github.com/rinoshkk/assembly-demo/blob/master/Assembly_Demo.png)
 
 ### Prerequisites
 
