@@ -1,4 +1,10 @@
+FROM golang:alpine as builder
+RUN mkdir /build 
+ADD . /build/
+WORKDIR /build 
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
 FROM scratch
-ADD main /
+COPY --from=builder /build/main /app/
+WORKDIR /app
 EXPOSE 8080/tcp
-CMD ["/main"]
+CMD ["./main"]
